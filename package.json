@@ -14,6 +14,7 @@
     "react-dom": "^18.3.1",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.23.1",
+    "sass": "^1.77.5",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
@@ -26,7 +27,7 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "lint": "eslint --fix src",
+    "lint": "eslint --fix \"**/*.{js,jsx}\"",
     "prettier": "prettier --write \"**/*.{js,jsx}\"",
     "start": "react-scripts start",
     "build": "react-scripts build",

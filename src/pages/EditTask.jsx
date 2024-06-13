@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie';
 import { url } from '../const';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import './editTask.css';
+import './editTask.scss';
 
 export const EditTask = () => {
   const navigation = useNavigate();

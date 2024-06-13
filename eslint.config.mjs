@@ -13,8 +13,9 @@ export default [
       ...globals.jquery,
     },
   }}, //グローバル変数
+  eslintConfigPrettier, //prettierとの併用
   pluginJs.configs.recommended, //推奨設定
-  pluginReactConfig, //Reactの推奨設定（）
+  pluginReactConfig, //Reactの推奨設定
   {
     files: ["**/*.{jsx,js}"],
     rules: {
@@ -23,5 +24,4 @@ export default [
       "react/prop-types": "off", //コンポーネント定義不足
     },
   },
-  eslintConfigPrettier,
 ];
