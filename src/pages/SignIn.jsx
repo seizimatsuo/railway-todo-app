@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
-import { useNavigate, Navigate, Routes, Route } from "react-router-dom";
-import { Header } from "../components/Header";
-import "./signin.css";
-import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../authSlice";
-import { url } from "../const";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+import { Link } from 'react-router-dom';
+import { useNavigate, Navigate, Routes, Route } from 'react-router-dom';
+import { Header } from '../components/Header';
+import './signin.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { signIn } from '../authSlice';
+import { url } from '../const';
 
 export const SignIn = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
   const navigation = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState();
   const [cookies, setCookie, removeCookie] = useCookies();
   const handleEmailChange = (e) => setEmail(e.target.value);
@@ -23,9 +23,9 @@ export const SignIn = () => {
     axios
       .post(`${url}/signin`, { email: email, password: password })
       .then((res) => {
-        setCookie("token", res.data.token);
+        setCookie('token', res.data.token);
         dispatch(signIn());
-        navigation("/");
+        navigation('/');
       })
       .catch((err) => {
         setErrorMessage(`サインインに失敗しました。${err}`);
@@ -48,19 +48,11 @@ export const SignIn = () => {
         <form className="signin-form">
           <label className="email-label">メールアドレス</label>
           <br />
-          <input
-            type="email"
-            className="email-input"
-            onChange={handleEmailChange}
-          />
+          <input type="email" className="email-input" onChange={handleEmailChange} />
           <br />
           <label className="password-label">パスワード</label>
           <br />
-          <input
-            type="password"
-            className="password-input"
-            onChange={handlePasswordChange}
-          />
+          <input type="password" className="password-input" onChange={handlePasswordChange} />
           <br />
           <button type="button" className="signin-button" onClick={onSignIn}>
             サインイン

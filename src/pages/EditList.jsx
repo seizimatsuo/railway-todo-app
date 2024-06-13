@@ -1,17 +1,17 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { Header } from "../components/Header";
-import { url } from "../const";
-import "./editList.css";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Header } from '../components/Header';
+import { url } from '../const';
+import './editList.css';
 
 export const EditList = () => {
   const navigation = useNavigate();
   const { listId } = useParams();
-  const [title, setTitle] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [title, setTitle] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [cookies] = useCookies();
   const handleTitleChange = (e) => setTitle(e.target.value);
   const onUpdateList = () => {
@@ -26,7 +26,7 @@ export const EditList = () => {
         },
       })
       .then(() => {
-        navigation("/");
+        navigation('/');
       })
       .catch((err) => {
         setErrorMessage(`更新に失敗しました。 ${err}`);
@@ -41,7 +41,7 @@ export const EditList = () => {
         },
       })
       .then(() => {
-        navigation("/");
+        navigation('/');
       })
       .catch((err) => {
         setErrorMessage(`削除に失敗しました。${err}`);
@@ -80,18 +80,10 @@ export const EditList = () => {
             onChange={handleTitleChange}
           />
           <br />
-          <button
-            type="button"
-            className="delete-list-button"
-            onClick={onDeleteList}
-          >
+          <button type="button" className="delete-list-button" onClick={onDeleteList}>
             削除
           </button>
-          <button
-            type="button"
-            className="edit-list-button"
-            onClick={onUpdateList}
-          >
+          <button type="button" className="edit-list-button" onClick={onUpdateList}>
             更新
           </button>
         </form>

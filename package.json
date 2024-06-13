@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.0",
     "axios": "^0.27.2",
+    "eslint-config-standard": "^17.1.0",
     "react": "^18.3.1",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.3.1",
@@ -20,10 +21,12 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.2",
     "globals": "^15.4.0",
+    "prettier": "^3.3.2",
     "react-scripts": "5.0.1"
   },
   "scripts": {
     "lint": "eslint --fix src",
+    "prettier": "prettier --write \"**/*.{js,jsx}\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
