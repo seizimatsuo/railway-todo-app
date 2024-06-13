@@ -19,7 +19,7 @@ export default [
   {
     files: ["**/*.{jsx,js}"],
     rules: {
-      "react/react-in-jsx-scope": "off", //Reactnのimport
+      "react/react-in-jsx-scope": "off", //Reactのimport
       "no-unused-vars": "off", //未使用の変数
       "react/prop-types": "off", //コンポーネント定義不足
     },
