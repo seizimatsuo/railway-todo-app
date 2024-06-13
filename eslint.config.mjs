@@ -2,7 +2,7 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
-import eslintConfigStandard from "eslint-config-standard";
+import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
   {languageOptions: {
@@ -12,9 +12,9 @@ export default [
       ...globals.node,
       ...globals.jquery,
     },
-  }},
+  }}, //グローバル変数
   pluginJs.configs.recommended, //推奨設定
-  pluginReactConfig, //Reactの推奨設定（おそらく）
+  pluginReactConfig, //Reactの推奨設定（）
   {
     files: ["**/*.{jsx,js}"],
     rules: {
@@ -23,5 +23,5 @@ export default [
       "react/prop-types": "off", //コンポーネント定義不足
     },
   },
-  eslintConfigStandard,
+  eslintConfigPrettier,
 ];
