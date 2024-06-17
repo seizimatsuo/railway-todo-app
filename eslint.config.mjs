@@ -11,6 +11,7 @@ export default [
       ...globals.es2021,
       ...globals.node,
       ...globals.jquery,
+      ...globals.jest,
     },
   }}, //グローバル変数
   eslintConfigPrettier, //prettierとの併用
