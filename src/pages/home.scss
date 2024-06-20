@@ -20,6 +20,15 @@
     overflow-x: auto;
   }
 
+  &-tab-item {
+    width: 120px;
+    border: 1px solid #333;
+    padding: 5px;
+    background: #f2f2f2;
+    margin: 15px;
+    align-items: center;
+  }
+
   &-item {
     flex-shrink: 0;
     width: 100px;

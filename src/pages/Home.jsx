@@ -87,7 +87,14 @@ export const Home = () => {
                 <li
                   key={key}
                   className={`list-tab-item ${isActive ? 'active' : ''}`}
+                  tabIndex={0}
                   onClick={() => handleSelectList(list.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleSelectList(list.id);
+                    }
+                  }}
                 >
                   {list.title}
                 </li>
@@ -174,4 +181,7 @@ const Tasks = (props) => {
 };
 
 //秒を入力していなかったとき分数の値が入力した値と別のものになる
+// →今は表示しないが秒数もあえて入力することで見た目はおかしくないようにしている
 //期限を越していた場合エラーが出るようにしないといけない（過去の日付でも通常通り判定が行われる）
+//タスクの編集ボタンを押して編集画面に行った後何も変更しないで更新ボタンを押したとき数値がおかしくなる
+// →値を入力しなかった場合初期値に入っている値が勝手に入る（1899年12月31日00時00分）
