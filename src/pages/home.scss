@@ -1,7 +1,49 @@
 .taskList {
   margin: 50px auto;
   list-style: none;
-  width: 1000px;
+  width: 800px;
+}
+
+@media screen and (max-width:768px) {
+  .taskList {
+    margin: 50px auto;
+    list-style: none;
+    width: 400px;
+  }
+}
+
+@media screen and (max-width:320px) {
+  .taskList {
+    margin: 50px auto;
+    list-style: none;
+    width: 200px;
+  }
+
+  .list {
+    &-header {
+      white-space: nowrap;
+      flex-direction: column;
+    }
+
+    &-menu {
+      flex-direction: column;
+      display: flex;
+      align-items: baseline;
+    }
+
+    &-tab {
+      flex-direction: column;
+    }
+  }
+
+  .tasks-header {
+    white-space: nowrap;
+    flex-direction: column;
+  }
+
+  .display-select {
+    margin-right: 100%;
+  }
 }
 
 .list {

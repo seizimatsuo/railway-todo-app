@@ -13,3 +13,10 @@
   color: #ffffff;
   margin: auto 25px auto auto;
 }
+
+@media screen and (max-width:320px) {
+  .header {
+    flex-direction: column;
+    list-style: none;
+  }
+}
