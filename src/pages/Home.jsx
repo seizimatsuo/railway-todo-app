@@ -27,7 +27,7 @@ export const Home = () => {
       .catch((err) => {
         setErrorMessage(`リストの取得に失敗しました。${err}`);
       });
-  }, []);
+  }, [cookies.token]);
 
   useEffect(() => {
     const listId = lists[0]?.id;
@@ -46,7 +46,7 @@ export const Home = () => {
           setErrorMessage(`タスクの取得に失敗しました。${err}`);
         });
     }
-  }, [lists]);
+  }, [cookies.token, lists]);
 
   const handleSelectList = (id) => {
     setSelectListId(id);
@@ -117,8 +117,8 @@ export const Home = () => {
 const Tasks = (props) => {
   const { tasks, selectListId, isDoneDisplay } = props;
   if (tasks === null) return <></>;
-
-  if (isDoneDisplay == 'done') {
+  const now = new Date();
+  if (isDoneDisplay === 'done') {
     return (
       <ul>
         {tasks
@@ -144,15 +144,34 @@ const Tasks = (props) => {
         .filter((task) => {
           return task.done === false;
         })
-        .map((task, key) => (
-          <li key={key} className="task-item">
-            <Link to={`/lists/${selectListId}/tasks/${task.id}`} className="task-item-link">
-              {task.title}
-              <br />
-              {task.done ? '完了' : '未完了'}
-            </Link>
-          </li>
-        ))}
+        .map((task, key) => {
+          const limit = new Date(task.limit);
+          const diff = Math.abs(limit.getTime() - now.getTime());
+          const day = Math.floor(diff / (24 * 60 * 60 * 1000));
+          const hour = Math.floor((diff / (60 * 60 * 1000)) % 24);
+          return (
+            <li key={key} className="task-item">
+              <Link to={`/lists/${selectListId}/tasks/${task.id}`} className="task-item-link">
+                {task.title}
+                <br />
+                {task.done ? '完了' : '未完了'}
+                <br />
+                期限：
+                {limit.getFullYear().toString().padStart(4, '0')}年
+                {(limit.getMonth() + 1).toString().padStart(2, '0')}月
+                {limit.getDate().toString().padStart(2, '0')}日
+                {limit.getHours().toString().padStart(2, '0')}時
+                {limit.getMinutes().toString().padStart(2, '0')}分
+                <br />
+                残り：
+                {day}日{hour}時間
+              </Link>
+            </li>
+          );
+        })}
     </ul>
   );
 };
+
+//秒を入力していなかったとき分数の値が入力した値と別のものになる
+//期限を越していた場合エラーが出るようにしないといけない（過去の日付でも通常通り判定が行われる）
