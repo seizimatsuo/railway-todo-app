@@ -15,52 +15,31 @@ export const EditTask = () => {
   const [detail, setDetail] = useState('');
   const [isDone, setIsDone] = useState();
   const [errorMessage, setErrorMessage] = useState('');
-  const [limitYear, setLimitYear] = useState(0);
-  const [limitMonth, setLimitMonth] = useState(0);
-  const [limitDay, setLimitDay] = useState(0);
-  const [limitHour, setLimitHour] = useState(0);
-  const [limitMinutes, setLimitMinutes] = useState(0);
-  const [limitSeconds, setLimitSeconds] = useState(0);
-  const [limit, setLimit] = useState(
-    new Date(limitYear, limitMonth, limitDay, limitHour, limitMinutes, limitSeconds)
-  );
+  const [limit, setLimit] = useState({
+    year: 0,
+    month: 0,
+    day: 0,
+    hour: 0,
+    minutes: 0,
+  });
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleIsDoneChange = (e) => setIsDone(e.target.value === 'done');
-  const handleLimitChange = () => {
-    setLimit(new Date(limitYear, limitMonth - 1, limitDay, limitHour, limitMinutes, limitSeconds));
-  };
-  const handleLimitYearChange = (e) => {
-    setLimitYear(e.target.value);
-    handleLimitChange();
-  };
-  const handleLimitMonthChange = (e) => {
-    setLimitMonth(e.target.value);
-    handleLimitChange();
-  };
-  const handleLimitDayChange = (e) => {
-    setLimitDay(e.target.value);
-    handleLimitChange();
-  };
-  const handleLimitHourChange = (e) => {
-    setLimitHour(e.target.value);
-    handleLimitChange();
-  };
-  const handleLimitMinutesChange = (e) => {
-    setLimitMinutes(e.target.value);
-    handleLimitChange();
-  };
-  const handleLimitSecondsChange = (e) => {
-    setLimitSeconds(e.target.value);
-    handleLimitChange();
+  const handleLimitChange = (e) => {
+    const { name, value } = e.target;
+    setLimit((prevLimit) => ({
+      ...prevLimit,
+      [name]: value,
+    }));
   };
   const onUpdateTask = () => {
     console.log(isDone);
+    const limitDate = new Date(limit.year, limit.month - 1, limit.day, limit.hour, limit.minutes);
     const data = {
       title: title,
       detail: detail,
       done: isDone,
-      limit: limit,
+      limit: limitDate,
     };
 
     axios
@@ -106,12 +85,14 @@ export const EditTask = () => {
         setDetail(task.detail);
         setIsDone(task.done);
         const limitDate = new Date(task.limit);
-        setLimitYear(limitDate.getFullYear());
-        setLimitMonth(limitDate.getMonth() + 1);
-        setLimitDay(limitDate.getDate());
-        setLimitHour(limitDate.getHours());
-        setLimitMinutes(limitDate.getMinutes());
-        setLimitSeconds(limitDate.getSeconds());
+        setLimit({
+          year: limitDate.getFullYear(),
+          month: limitDate.getMonth() + 1,
+          day: limitDate.getDate(),
+          hour: limitDate.getHours(),
+          minutes: limitDate.getMinutes(),
+          seconds: limitDate.getSeconds(),
+        });
       })
       .catch((err) => {
         setErrorMessage(`タスク情報の取得に失敗しました。${err}`);
@@ -138,46 +119,44 @@ export const EditTask = () => {
           <br />
           <input
             type="text"
-            onChange={handleLimitYearChange}
-            value={limitYear}
+            name="year"
+            onChange={handleLimitChange}
+            value={limit.year}
             className="new-task-limit"
           />
           <label>年</label>
           <input
             type="text"
-            onChange={handleLimitMonthChange}
-            value={limitMonth}
+            name="month"
+            onChange={handleLimitChange}
+            value={limit.month}
             className="new-task-limit"
           />
           <label>月</label>
           <input
             type="text"
-            onChange={handleLimitDayChange}
-            value={limitDay}
+            name="day"
+            onChange={handleLimitChange}
+            value={limit.day}
             className="new-task-limit"
           />
           <label>日</label>
           <input
             type="text"
-            onChange={handleLimitHourChange}
-            value={limitHour}
+            name="hour"
+            onChange={handleLimitChange}
+            value={limit.hour}
             className="new-task-limit"
           />
           <label>時</label>
           <input
             type="text"
-            onChange={handleLimitMinutesChange}
-            value={limitMinutes}
+            name="minutes"
+            onChange={handleLimitChange}
+            value={limit.minutes}
             className="new-task-limit"
           />
           <label>分</label>
-          <input
-            type="text"
-            onChange={handleLimitSecondsChange}
-            value={limitSeconds}
-            className="new-task-limit"
-          />
-          <label>秒</label>
           <br />
           <label>詳細</label>
           <br />
@@ -216,7 +195,6 @@ export const EditTask = () => {
             className="edit-task-button"
             onClick={async () => {
               await onUpdateTask();
-              await handleLimitChange();
               console.log(limit);
             }}
           >

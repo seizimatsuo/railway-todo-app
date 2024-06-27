@@ -14,9 +14,14 @@
   margin: auto 25px auto auto;
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:378px) {
   .header {
+    width: 378px;
     flex-direction: column;
     list-style: none;
+  }
+
+  .sign-out-button {
+    margin: auto 70px auto auto;
   }
 }
